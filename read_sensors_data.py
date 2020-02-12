@@ -84,11 +84,10 @@ if __name__ == '__main__':
 	err_log = cwd + "/err_log.csv"
 	conf_file = cwd + "/config.yaml"
 
-	index_name = "test"
 
 	config = configuration_import(conf_file)
 	es = elasticsearch_connect(config['es_url'])
-	elasticsearch_createIfNotExistIndex(es, index_name)
+	elasticsearch_createIfNotExistIndex(es, config['es_index_name'])
 
 	print(" * Reading data from sensors.. * ")
 	timestamp = datetime.datetime.utcnow()
@@ -107,7 +106,7 @@ if __name__ == '__main__':
 		'timestamp': timestamp
 	}
 	print(" * Indexing results into elasticsearch.. * ")
-	elasticsearch_index_document(es, index_name, doc)
+	elasticsearch_index_document(es, config['es_index_name'], doc)
 	print(" * All Done * ")
 
 
