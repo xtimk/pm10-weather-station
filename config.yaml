@@ -1,0 +1,16 @@
+## Config
+
+## set here elasticsearch address. Include also the port
+es_address: "my-es-instance:9200"
+es_proto: "http"
+
+## set this to 0 if you're not enabled auth in your es cluster
+## set this to 1 if you're using basic auth
+es_basic_auth: 1
+
+## set elasticsearch user and password
+es_user: "elastic"
+es_pass: "MYNASASECRETEPASSWORD"
+
+## set elasticsearch index name
+es_index_name: "my-index-name"
