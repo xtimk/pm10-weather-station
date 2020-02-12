@@ -1,4 +1,3 @@
-import board
 import unittest
 from dht11 import get_dht11_temperature_c, get_dht11_humidity
 

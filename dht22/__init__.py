@@ -1,4 +1,3 @@
-import board
 ## New Library Not working with raspberry PI 2
 # import adafruit_dht
 

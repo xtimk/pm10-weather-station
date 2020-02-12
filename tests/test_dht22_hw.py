@@ -1,4 +1,3 @@
-import board
 import unittest
 from dht22 import get_dht22_temperature_c, get_dht22_humidity
 
