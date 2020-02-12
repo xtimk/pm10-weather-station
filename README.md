@@ -8,7 +8,7 @@ I would recommend the `DHT22`  since it's far more precise than `DHT11`. You may
  - `SDS011` pm2.5 and pm10 sensor. In this project you will attach this sensor to an usb port of the RPi
 
 
-## Wiring Raspberry with DHT11/DHT22
+## Wiring Raspberry with `DHT11`/`DHT22`
 `DHT11/DHT22` are distributed in two versions:
  - A PCB module mounted with 3 pins. You don't need any extra resistor because it's included in the PCB
  - A standalone module with 4 pins. If you have this you also need a `10K Ohm` resistor.
@@ -25,6 +25,16 @@ Below are shown two examples configured to use `pin 4` as data, but you can use 
 
 
 You can find the detailed description about wiring raspberry with the `DHT11/DHT22` on [circuitbasics.com](http://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-the-raspberry-pi/)
+## Wiring Raspberry with `SDS011`
+Simply attach the sensor to a free usb port. Then you can determine the device id where you attached the sensor by running
+```bash
+dmesg | grep usb
+```
+In the output look for a line where compares `ch341-uart`
+For example from this output I can determine that the sensor is attached to `/dev/ttyUSB0`.
+```bash
+[ 17.653578] usb 1-1.2: ch341-uart converter now attached to ttyUSB0
+```
 
 ## Prerequisites
 You will need `python3` on your RPi in order to run this project.
@@ -33,39 +43,42 @@ To install the required libraries you can run
 pip3 install -r requirements.txt
 ```
 ## Configuration
-You can set your elasticsearch instance in the `config.yaml` file. It is also supported elasticsearch instance with basic authentication.
+You can setup all the parameters in the `config.yaml` file.
 
+### Configure Sensors
+You can setup the data pins of the `DHT11` and `DHT22` by setting the parameters `dht11_data_pin` and `dht22_data_pin`
 Example:
 ```bash
-## Config
-#### PIN CONFIGURATION
-## Set here data pins used by the dht11 and dht22 sensors
 dht11_data_pin: 4
 dht22_data_pin: 17
+```
 
-#### Usb port where SDS001 is attached
-## Set here the right device where SDS011 is attached
-## Hint: you can use "dmesg | grep usb" and find something like:
-## [17.383277] usb 1-1.2: ch341-uart converter now attached to ttyUSB0
+Setup device where SDS011 is attached
+```bash
 sds011_serial_port: "/dev/ttyUSB0"
+```
 
-
-#### ELASTICSEARCH OUTPUT
-## set here elasticsearch address. Include also the port
+### Configure Elasticsearch
+Setup elasticsearch address and protocol
+```bash
 es_address: "my-es-instance:9200"
 es_proto: "http"
-
-## set this to 0 if you're not enabled auth in your es cluster
-## set this to 1 if you're using basic auth
+```
+If you have security enabled in your Elasticsearch set this to `1`
+```bash
 es_basic_auth: 1
-
-## set elasticsearch user and password
+```
+Set user and password
+```bash
 es_user: "elastic"
 es_pass: "MYNASASECRETEPASSWORD"
-
-## set elasticsearch index name
+```
+Set index output name
+```bash
 es_index_name: "my-pm10-station"
 ```
+You can start editing from the `config.yaml` included in this repo.
+
 ## Testing Sensors
 You can run all tests to verify that all sensors are ok:
 ```bash
@@ -115,3 +128,4 @@ And add the following line
 ```bash
 */2 * * * *  root  python3 /root/pm10-weather-station/read_sensors_data.py
 ```
+Now all you have to do is to create some cool graphs in Elasticsearch and enjoy :D
