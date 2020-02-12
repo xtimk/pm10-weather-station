@@ -33,6 +33,7 @@ def configuration_import(filepath):
 
 	print(" * DHT11 data pin configured: " + str(config['dht11_data_pin']) )
 	print(" * DHT22 data pin configured: " + str(config['dht22_data_pin']) )
+	print(" * SDS011 serial port configured: " + config['sds011_serial_port'] )
 
 	## If not using basic auth for elasticsearch i will call http(s)://es_address
 	if config['es_basic_auth'] == 0:
@@ -114,7 +115,7 @@ if __name__ == '__main__':
 	# pm10 = pm_results['pm10']
 	########## ################### ##########
 
-	pm_sensor = Sds011("/dev/ttyUSB0", use_query_mode=True)
+	pm_sensor = Sds011(config['sds011_serial_port'], use_query_mode=True)
 	pm25, pm10 = pm_sensor.get_pm25_pm10()
 	# pm25 = pm_results['pm25']
 	# pm10 = pm_results['pm10']
@@ -149,7 +150,7 @@ if __name__ == '__main__':
 	print("------------------------")
 
 	print(" * SDS011 Sensor data:")
-	print(" * >> PM2.5: {0:.2f} µg/m^3 (±)".format(pm25))
-	print(" * >> PM10   : {0:.2f} µg/m^3 (±)".format(pm10))
+	print(" * >> PM2.5: {0:.2f} µg/m^3 (Rel. Error: 10%)".format(pm25))
+	print(" * >> PM10   : {0:.2f} µg/m^3 (Rel. Error: 10%)".format(pm10))
 
 	print("------------------------")
