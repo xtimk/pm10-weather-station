@@ -8,9 +8,12 @@ import datetime
 import csv
 import os
 import json
+import serial
 
 from dht22 import get_dht22_temperature_c, get_dht22_humidity
 from dht11 import get_dht11_temperature_c, get_dht11_humidity
+# from sds011 import get_pm25_pm10
+from sds011 import Sds011
 
 def configuration_import(filepath):
 	## Now reading from config file
@@ -98,11 +101,32 @@ if __name__ == '__main__':
 	dht11_temperature = get_dht11_temperature_c(config['dht11_data_pin'])
 	dht11_humidity = get_dht11_humidity(config['dht11_data_pin'])
 
+	# ser = serial.Serial('/dev/ttyUSB0')
+	# ser.port = "/dev/ttyUSB0"
+	# ser.baudrate = 9600
+
+	# ser.open()
+	# ser.flushInput()
+
+	########## Using Simple Method ##########
+	# pm_results = get_pm25_pm10(ser)
+	# pm25 = pm_results['pm25']
+	# pm10 = pm_results['pm10']
+	########## ################### ##########
+
+	pm_sensor = Sds011("/dev/ttyUSB0", use_query_mode=True)
+	pm25, pm10 = pm_sensor.get_pm25_pm10()
+	# pm25 = pm_results['pm25']
+	# pm10 = pm_results['pm10']
+
+
 	doc = {
 		'dht22_temperature': dht22_temperature,
 		'dht22_humidity': dht22_humidity,
 		'dht11_temperature': dht11_temperature,
 		'dht11_humidity': dht11_humidity,
+		'sds011_pm25': pm25,
+		'sds011_pm10': pm10,
 		'timestamp': timestamp
 	}
 	print(" * Indexing results into elasticsearch.. * ")
@@ -121,5 +145,11 @@ if __name__ == '__main__':
 	print(" * DHT22 Sensor data:")
 	print(" * >> Temperature: {0:.2f}°C (±0.5°C)".format(dht22_temperature))
 	print(" * >> Humidity   : {0:.2f} % (±2-5 %)".format(dht22_humidity))
+
+	print("------------------------")
+
+	print(" * SDS011 Sensor data:")
+	print(" * >> PM2.5: {0:.2f} µg/m^3 (±)".format(pm25))
+	print(" * >> PM10   : {0:.2f} µg/m^3 (±)".format(pm10))
 
 	print("------------------------")
