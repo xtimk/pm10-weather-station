@@ -3,6 +3,9 @@
 # Particulate Raspberry Pi Station
 Python based batch software that collects Temperature Humidity PM2.5 and PM10 from sensors and stores them in an Elasticsearch instance.
 
+![pm-station-example](docs/images/pm-station2.png)
+
+I'm running this project in Udine (Italy). You can check real-time stats [here](http://vps626382.ovh.net/pm10/)
 ## What do you need to run this project
  - A `Raspberry Pi`. Project was tested on a `RPi 2`, but it should be compatible with `RPi 3` and `4`)
  - `DHT11` or `DHT22` (or both if you want) temperature & humidity sensors. 
