@@ -1,3 +1,7 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/xtimk/pm10-weather-station/blob/master/LICENSE) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
+<iframe src="http://vps626382.ovh.net:8080/s/pm10-weather-station/app/kibana#/dashboard/b619c9c0-4dee-11ea-9c82-8761e301b0d2?_g=(refreshInterval%3A(pause%3A!f%2Cvalue%3A60000)%2Ctime%3A(from%3Anow-12h%2Cto%3Anow))?embed=true" height="100%" width="100%" border="0" ></iframe>
+
 # Particulate Raspberry Pi Station
 Python based batch software that collects Temperature Humidity PM2.5 and PM10 from sensors and stores them in an Elasticsearch instance.
 
