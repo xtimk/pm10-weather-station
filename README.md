@@ -7,7 +7,7 @@ Python based batch software that collects Temperature Humidity PM2.5 and PM10 fr
 
 I'm running this project in Udine (Italy). You can check real-time stats [here](http://vps-38c91410.vps.ovh.net/weather-station/weather-station-ud.html)
 ## What do you need to run this project
- - A `Raspberry Pi`. Project was tested on a `RPi 2`, but it should be compatible with `RPi 3` and `4`)
+ - A `Raspberry Pi`. Project was tested on a `RPi 1` (the first classic one), but it should be compatible with `RPi 2`, `3` and `4`)
  - `DHT11` or `DHT22` (or both if you want) temperature & humidity sensors. 
 I would recommend the `DHT22`  since it's far more precise than `DHT11`. You may also need a `10K Ohm` resistor if you have the standalone modules.
  - `SDS011` pm2.5 and pm10 sensor. In this project you will attach this sensor to an usb port of the RPi
