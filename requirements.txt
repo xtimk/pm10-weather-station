@@ -1,6 +1,6 @@
 Adafruit-DHT==1.4.0
 elasticsearch==7.5.1
-future==0.18.2
+future==0.18.3
 iso8601==0.1.12
 pkg-resources==0.0.0
 pyserial==3.4
